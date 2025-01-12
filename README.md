@@ -32,13 +32,13 @@
 ## 部署说明
 
 1. 确保已安装 Node.js (版本 >= 16.0.0)
-2. 克隆项目仓库
+2. 克隆项目仓库：`git clone https://github.com/SleepyCelery/GroupToolFrontend.git`
 3. 安装依赖：`npm install`
 4. 配置环境变量：
-   - 创建 `.env` 文件
-   - 设置 `VITE_SERVER_URL` 为后端服务地址
-5. 构建项目：`npm run build`
-6. 部署生成的 `dist` 目录到 Web 服务器
+   - 修改 `.env.production` 文件
+   - 设置 `VITE_SERVER_URL` 为完整后端服务地址
+5. 构建项目：终端运行 `npm run build`
+6. 部署生成的 `dist` 目录到 Web 服务器，如 Nginx 等，推荐使用 HTTPS 以确保功能完整
 
 ## 注意事项
 
