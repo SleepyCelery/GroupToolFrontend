@@ -1,6 +1,6 @@
 # 分组工具 2.0 前端
 
-这是一个基于 Vue 3 + Vite + TypeScript 开发的分组工具前端，可以帮助用户快速创建和管理分组，后端在这里：[分组工具 2.0 后端](https://github.com/zhaoyu1995/group-tool-backend)
+这是一个基于 Vue 3 + Vite + TypeScript 开发的分组工具前端，可以帮助用户快速创建和管理分组，后端在这里：[分组工具 2.0 后端](https://github.com/SleepyCelery/GroupToolBackend)
 
 ## 主要功能
 
@@ -32,7 +32,7 @@
 ## 部署说明
 
 1. 确保已安装 Node.js (版本 >= 16.0.0)
-2. 克隆项目仓库：`git clone https://github.com/SleepyCelery/GroupToolFrontend.git`
+2. 克隆项目仓库：`git clone https://github.com/SleepyCelery/GroupToolFrontend`
 3. 安装依赖：`npm install`
 4. 配置环境变量：
    - 修改 `.env.production` 文件
@@ -45,16 +45,6 @@
 1. 项目使用 TypeScript 开发，`.vue` 文件的类型支持需要 Volar 插件
 2. 生产环境部署时请确保配置正确的后端服务地址
 3. 分享链接功能需要浏览器支持 Clipboard API
-4. 项目使用了响应式设计，建议在移动端和桌面端都进行测试
-5. 开发时建议启用 VSCode 的 ESLint 和 Prettier 插件以保证代码风格统一
-
-## 贡献指南
-
-欢迎提交 Pull Request 或 Issue。提交代码前请确保：
-
-1. 通过 `npm run lint` 检查
-2. 通过 `npm run format` 格式化代码
-3. 添加必要的单元测试
 
 ## 许可证
 
