@@ -13,16 +13,37 @@
           Vue3
         </a>
         <br />
-        Built with <n-icon class="heart-icon"><HeartFilled /></n-icon> by SleepyCelery
+        Built with <n-icon class="heart-icon"><HeartFilled /></n-icon> by
+        <a href="https://github.com/SleepyCelery" target="_blank" rel="noopener noreferrer"
+          >SleepyCelery</a
+        >
+        <n-popover trigger="click" placement="top">
+          <template #trigger>
+            <span class="contributors-link">Thanks to these CONTRIBUTORS</span>
+          </template>
+          <n-list>
+            <n-list-item v-for="contributor in contributors" :key="contributor.name">
+              <a :href="contributor.link" target="_blank" rel="noopener noreferrer">
+                {{ contributor.name }}
+              </a>
+            </n-list-item>
+          </n-list>
+        </n-popover>
       </span>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { NIcon } from 'naive-ui'
+import { NIcon, NPopover, NList, NListItem } from 'naive-ui'
 import { HeartFilled } from '@vicons/antd'
 import { LogoVue } from '@vicons/ionicons5'
+import { ref } from 'vue'
+
+const contributors = ref([
+  { name: 'subtlyrabbit (Liaoyi Yu)', link: 'https://github.com/subtlyrabbit' },
+  // 可以继续添加更多贡献者
+])
 </script>
 
 <style scoped>
@@ -62,5 +83,16 @@ import { LogoVue } from '@vicons/ionicons5'
   vertical-align: middle;
   margin: 0 4px;
   display: inline-block;
+}
+
+.contributors-link {
+  color: #666;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.contributors-link:hover {
+  color: #409eff;
 }
 </style>
