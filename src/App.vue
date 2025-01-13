@@ -38,7 +38,7 @@ const fetchLatestGroups = async () => {
     // 检查是否有新分组
     if (isGroupListChanged(newGroups, groupList.value)) {
       if (groupList.value.length > 0) {
-        message.info('有新的分组结果！')
+        message.info('分组结果已更新')
       }
       groupList.value = newGroups
     }
@@ -71,6 +71,7 @@ const checkClipboard = async () => {
     if (match && text !== clipboardStore.lastContent) {
       clipboardStore.updateContent(text) // 更新store中的内容
       const [, id, password] = match
+      console.log(id, password)
       dialog.info({
         title: '分组分享',
         content: `你的好友向你分享了ID为 ${id} 的分组结果，是否打开？`,

@@ -20,6 +20,10 @@ export async function request<T>(
 ): Promise<T> {
   let url = `${serverUrl}${endpoint}`
 
+  // 创建AbortController用于超时控制
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5000) // 5秒超时
+
   // 如果是 GET 请求且有查询参数，构建查询字符串
   if (method === 'GET' && data && 'params' in data) {
     const queryParams = new URLSearchParams(data.params as Record<string, string>).toString()
@@ -37,7 +41,10 @@ export async function request<T>(
       headers: defaultHeaders,
       // 非 GET 请求才需要 body
       body: method !== 'GET' ? JSON.stringify(data) : undefined,
+      signal: controller.signal, // 添加AbortSignal
     })
+
+    clearTimeout(timeoutId) // 请求成功时清除定时器
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -62,7 +69,11 @@ export async function request<T>(
 
     return result.data
   } catch (error) {
-    // message.error('请求失败，未知错误！')
+    clearTimeout(timeoutId) // 请求失败时也要清除定时器
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('请求超时')
+      throw new Error('请求超时，请检查网络连接')
+    }
     console.error('API请求错误:', error)
     throw error
   }

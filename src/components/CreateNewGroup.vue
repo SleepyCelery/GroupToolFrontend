@@ -4,7 +4,11 @@
       <n-form ref="formRef" :model="formData" :rules="rules">
         <!-- 分组名称 -->
         <n-form-item label="分组名称" path="groupName" inline>
-          <n-input v-model:value="formData.groupName" placeholder="请输入分组名称" />
+          <n-input
+            v-model:value="formData.groupName"
+            maxlength="20"
+            placeholder="请输入分组名称，最多20字符"
+          />
         </n-form-item>
 
         <!-- 是否公开 -->
@@ -106,7 +110,9 @@
       <template #footer>
         <n-space justify="end">
           <n-button @click="handleCancel">关闭</n-button>
-          <n-button type="primary" @click="handleSubmit">确认创建</n-button>
+          <n-button type="primary" :loading="isSubmitting" @click="handleSubmit">
+            确认创建
+          </n-button>
         </n-space>
       </template>
     </n-card>
@@ -213,7 +219,14 @@ const isMobile = computed(() => window.innerWidth < 768)
 const loadPopularElements = async () => {
   try {
     const data = await request<string[]>('GET', '/hot_elements')
+    const originalLength = formData.value.sourceElements.length
     formData.value.sourceElements = [...new Set([...formData.value.sourceElements, ...data])]
+    const addedCount = formData.value.sourceElements.length - originalLength
+    if (addedCount > 0) {
+      message.success(`成功加载${addedCount}个热门元素`)
+    } else {
+      message.info('没有新的热门元素可加载')
+    }
   } catch (error) {
     message.error('加载热门元素失败')
     console.error(error)
@@ -230,7 +243,11 @@ const loadDataSource = async () => {
   }
 }
 
+const isSubmitting = ref(false)
+
 const handleSubmit = async () => {
+  isSubmitting.value = true
+
   formRef.value?.validate(async (errors) => {
     if (!errors) {
       try {
@@ -268,9 +285,12 @@ const handleSubmit = async () => {
       } catch (error) {
         console.error('创建分组失败:', error)
         message.error('创建分组失败，请稍后重试')
+      } finally {
+        isSubmitting.value = false
       }
     } else {
       message.error('请检查表单')
+      isSubmitting.value = false
     }
   })
 }

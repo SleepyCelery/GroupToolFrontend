@@ -101,8 +101,7 @@ interface GroupInfo {
   is_public: boolean
   source_elements: string[]
   group_count: number
-  password?: string // 可选属性
-  share_url?: string // 可选属性
+  private_password: string
 }
 
 const showModal = ref(false)
@@ -117,6 +116,7 @@ const groupInfo = ref<GroupInfo>({
   is_public: false,
   source_elements: [],
   group_count: 0,
+  private_password: '',
 })
 
 const isMobile = ref(false)
@@ -163,7 +163,7 @@ const open = async (id: number, password: string = '') => {
 }
 
 const handleCopyShare = () => {
-  const shareText = `复制此文本并打开链接${window.location.href}查看分组结果：##GroupToolShare##${groupInfo.value.id}##${groupInfo.value.password}##`
+  const shareText = `复制此文本并打开链接${window.location.href}查看分组结果：##GroupToolShare##${groupInfo.value.id}##${groupInfo.value.private_password}##`
 
   navigator.clipboard.writeText(shareText)
   clipboardStore.updateContent(shareText)
