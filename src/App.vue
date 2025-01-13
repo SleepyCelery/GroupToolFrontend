@@ -63,6 +63,15 @@ const stopPolling = () => {
 // 检查剪贴板内容
 const checkClipboard = async () => {
   try {
+    // 检查是否有剪贴板读取权限
+    const permission = await navigator.permissions.query({
+      name: 'clipboard-read' as PermissionName,
+    })
+    if (permission.state !== 'granted') {
+      console.warn('没有剪贴板读取权限')
+      return
+    }
+
     const text = await navigator.clipboard.readText()
     const regex = /##GroupToolShare##(\d+)##(.*?)##/
     const match = text.match(regex)
@@ -84,6 +93,7 @@ const checkClipboard = async () => {
     }
   } catch (error) {
     console.error('读取剪贴板失败:', error)
+    message.error('读取剪贴板失败')
   } finally {
     if (clipboardCheckInterval !== null) {
       clearInterval(clipboardCheckInterval)
@@ -111,6 +121,10 @@ onMounted(() => {
     }
   })
 })
+
+if (!navigator.clipboard) {
+  message.error('当前浏览器不支持剪贴板功能')
+}
 </script>
 
 <template>
