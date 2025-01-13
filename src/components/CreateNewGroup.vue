@@ -1,7 +1,14 @@
 <template>
   <n-modal v-model:show="showModal">
     <n-card :style="{ width: isMobile ? '90%' : '600px' }" title="创建新的分组">
-      <n-form ref="formRef" :model="formData" :rules="rules">
+      <n-form
+        ref="formRef"
+        :model="formData"
+        :rules="rules"
+        label-placement="left"
+        label-width="auto"
+        require-mark-placement="right-hanging"
+      >
         <!-- 分组名称 -->
         <n-form-item label="分组名称" path="groupName" inline>
           <n-input
@@ -12,7 +19,7 @@
         </n-form-item>
 
         <!-- 是否公开 -->
-        <n-form-item label="是否公开" path="isPublic" inline>
+        <n-form-item label="是否公开" path="isPublic" inline required>
           <n-radio-group v-model:value="formData.isPublic" inline>
             <n-radio :value="true">公开</n-radio>
             <n-radio :value="false">私有</n-radio>
@@ -20,7 +27,7 @@
         </n-form-item>
 
         <!-- 私有分组密码 -->
-        <n-form-item v-if="!formData.isPublic" label="分组密码" path="password" inline>
+        <n-form-item v-show="!formData.isPublic" label="分组密码" path="password" inline required>
           <n-input
             v-model:value="formData.password"
             type="password"
@@ -40,7 +47,7 @@
         </n-form-item>
 
         <!-- 分组模式 -->
-        <n-form-item label="分组模式" path="groupMode" inline>
+        <n-form-item label="分组模式" path="groupMode" inline required>
           <n-radio-group v-model:value="formData.groupMode">
             <n-radio value="equal">根据组数均等分配所有元素</n-radio>
             <n-radio value="size">按固定数量分配每组元素</n-radio>
@@ -331,8 +338,7 @@ defineExpose({
   flex-shrink: 0;
 }
 
-/* 修改后的样式 */
-:deep(.n-form-item) {
+/* :deep(.n-form-item) {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -340,31 +346,28 @@ defineExpose({
 }
 
 :deep(.n-form-item__label) {
-  flex: 0 0 100px; /* 固定标签宽度 */
-  text-align: right; /* 标签右对齐 */
+  flex: 0 0 100px;
+  text-align: right;
 }
 
 :deep(.n-form-item-blank) {
   flex: 1;
-  max-width: 400px; /* 输入框最大宽度 */
+  max-width: 400px;
 }
 
-/* 针对选择器的特殊样式 */
 :deep(.n-select) {
   width: 100%;
   max-width: 400px;
 }
 
-/* 针对输入框的特殊样式 */
 :deep(.n-input),
 :deep(.n-input-number) {
   width: 100%;
   max-width: 400px;
 }
 
-/* 针对单选按钮组的特殊样式 */
 :deep(.n-radio-group) {
   width: 100%;
   max-width: 400px;
-}
+} */
 </style>
