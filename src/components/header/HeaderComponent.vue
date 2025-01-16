@@ -6,7 +6,7 @@
         <Group20Filled />
       </template>
       <template #default>
-        <span style="font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; font-size: 24px; font-weight: 600; color: #2c3e50;">
+        <span style="font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; font-size: 20px; font-weight: 600; color: #2c3e50;">
           分组工具 2.0
         </span>
       </template>
